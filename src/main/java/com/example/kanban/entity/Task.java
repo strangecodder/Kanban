@@ -2,9 +2,12 @@ package com.example.kanban.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 public class Task {
@@ -13,7 +16,9 @@ public class Task {
     private int id;
 
     @Getter
-    private int person_id;
+    @ManyToOne
+    @JoinColumn(name = "person_id",referencedColumnName = "id")
+    private UserInfo person_id;
 
     @Getter
     private String description;
@@ -26,7 +31,7 @@ public class Task {
 
     public Task(){}
 
-    public Task(int person_id, String description, Date deadline, Date finish_date){
+    public Task(UserInfo person_id, String description, Date deadline, Date finish_date){
         this.person_id = person_id;
         this.description = description;
         this.deadline = deadline;
